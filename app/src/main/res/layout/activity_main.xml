@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/nomeSerPesquisado"
+            android:layout_width="302dp"
+            android:layout_height="60dp"
+            android:text="Pesquisar"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="33dp" />
+
+        <android.widget.Button
+            android:id="@+id/procurarNome"
+            android:layout_width="109dp"
+            android:layout_height="61dp"
+            android:text="Button"
+            tools:layout_editor_absoluteX="302dp"
+            tools:layout_editor_absoluteY="24dp"
+            android:onClick="readContacts"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight=".8">
+        <LinearLayout
+            android:id="@+id/contatos"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:orientation="vertical">
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+    </LinearLayout>
+    <android.widget.Button
+        android:id="@+id/enviarMensagemWhatsApp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="682dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
