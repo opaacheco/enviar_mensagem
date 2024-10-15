@@ -2,41 +2,22 @@
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
+    android:orientation="horizontal"
+    android:layout_margin="15dp"
     android:onClick="sendMessageOnWhatsApp">
-
-<ImageView
-    android:layout_width="115dp"
-    android:layout_height="106dp"
-    android:src="@drawable/ic_launcher_background"/>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
     <TextView
         android:id="@+id/nomeContacto"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="nome"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:gravity=""
+        android:text="nome" />
 
     <TextView
         android:id="@+id/numeroText"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="numero"
-        android:layout_marginTop="23dp"
-        android:layout_marginLeft="5dp"/>
-</LinearLayout>
-</LinearLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:text="numero"/>
+</androidx.appcompat.widget.LinearLayoutCompat>

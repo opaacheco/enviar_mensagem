@@ -15,7 +15,6 @@ import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -44,22 +43,12 @@ class MainActivity : AppCompatActivity() {
         adapter = CTT_recyclerViewAdapter(this, phones) // Criação do adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-
+        readContacts(recyclerView)
     }
 
     fun displayPhones(phones: List<contato>) {
         Log.v("ablube", "cheguei aqui")
-        //.phones =  // Adicionar novos contatos
         adapter.contatos = phones.toMutableList()
-        adapter.notifyDataSetChanged() // Notificar o adapter
-//        val displayContatos = findViewById<RecyclerView>(R.id.recyclerViewContatos)
-//        for (contato in phones){
-//            val newTextView = LayoutInflater.from(this).inflate(R.layout.contacto, null, false)
-//            newTextView.findViewById<TextView>(R.id.nomeContacto).text = contato.name
-//            newTextView.findViewById<TextView>(R.id.numeroText).text = contato.phone
-//            displayContatos.addView(newTextView)
-//            Log.v("ablube",contato.name)
-//        }
     }
 
     fun readContacts(view: View) {
@@ -75,12 +64,10 @@ class MainActivity : AppCompatActivity() {
             );
             return
         }
-        Log.v("telegone", "to aqui")
         val getString = findViewById<EditText>(R.id.nomeSerPesquisado).text.toString()
         val seletorQueContem = "${ContactsContract.Contacts.DISPLAY_NAME} LIKE ?"
         val nomeaSerContidoNaColuna = arrayOf("%$getString%")
         val ordemDeDisplay = "${ContactsContract.Contacts.DISPLAY_NAME} ASC"
-
         contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI, arrayOf(
                 ContactsContract.Contacts._ID,
@@ -91,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             val idColumn = cursor.getColumnIndex(ContactsContract.Contacts._ID)
             val nameColumn = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
             val phoneColumn = cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
-
+            phones.clear()
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val name = cursor.getString(nameColumn)
@@ -111,22 +98,22 @@ class MainActivity : AppCompatActivity() {
                             Log.v("tele", phoneNumber)
                             phones.add(contato(id, name, phoneNumber))
                         }
-//                    Log.v("telegone",phone.toString())
-//                    phones.add(contato(id, name, phone.toString()))
                     }
                 }
-                displayPhones(phones)
             }
+            adapter.notifyDataSetChanged()
+            displayPhones(phones)
         }
     }
-    fun sendMessageOnWhatsApp(view: View) {
-        val number = findViewById<TextView>(R.id.numeroText).text.toString()
-        val numeroTratado = number.replace(" ", "")
+
+    fun sendMessageOnWhatsApp(phone: String, nome: String) {
+        val numeroTratado = phone.replace(" ", "")
         if(isInstalled("com.whatsapp", this)){
             Log.v("cheguei", numeroTratado)
             try {
                 val intent = Intent(Intent.ACTION_VIEW)
-                val url = "https://wa.me/$numeroTratado"
+                val message = "Essa mensagem foi enviada pela atividade do trabalho de móvel, Sr(a) $nome!"
+                val url = "https://wa.me/$numeroTratado?text=${Uri.encode(message)}"
                 intent.data = Uri.parse(url)
                 startActivity(intent)
             } catch (e: Exception) {
@@ -136,8 +123,8 @@ class MainActivity : AppCompatActivity() {
             Log.v("cheguei", "deu bosta")
             showAlert(this)
         }
-
     }
+
     fun isInstalled(packgeName: String , context: Context): Boolean {
         try {
             context.packageManager.getPackageInfo(packgeName, PackageManager.GET_ACTIVITIES)
@@ -155,6 +142,5 @@ class MainActivity : AppCompatActivity() {
         var alertaDeDialogo = builder.create()
         alertaDeDialogo.show()
     }
-
 }
 
